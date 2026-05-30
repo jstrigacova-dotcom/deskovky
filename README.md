@@ -23,10 +23,12 @@ Pomocí agregačních funkcí (`MIN`, `MAX`) byly v datech vyhledány nelogické
 * **Herní čas (`Play Time`):** Hodnoty rovnající se 0 byly změněny na `NULL`. Extrémní hodnoty (hry s časem nad 5 000 hodin, např. *The Campaign for North Africa* s 12 000 hodinami) byly podrobeny rešerši a potvrzeny jako správné.
 * **Maximální počet hráčů:** Hodnota 999 se v komunitě BGG používá pro "neomezený počet hráčů", u těchto záznamů byla hodnota upravena na `NULL` pro zachování čistoty budoucích statistik.
 
-## 💻 Ukázky mých SQL příkazů
+## 💻 Ukázky SQL příkazů
 
-**Kontrola NULL hodnot v celém datasetu:**
+Níže jsou uvedeny příklady dotazů použitých během procesu validace a čištění dat:
 
+### Kontrola NULL hodnot v celém datasetu
+```sql
 SELECT 
     COUNT(*) AS Total_Records,
     SUM(CASE WHEN ID IS NULL THEN 1 ELSE 0 END) AS Null_ID,
@@ -34,11 +36,24 @@ SELECT
     SUM(CASE WHEN `Play Time` IS NULL THEN 1 ELSE 0 END) AS Null_Play_Time
 FROM bgg_dataset_des;
 
-
-**Úprava duelových her na základě rešerše:** 
-UPDATE `bgg_dataset_des` 
+SQL
+-- Automatické nastavení minimálního počtu hráčů pro duelové hry
+UPDATE bgg_dataset_des 
 SET `Min Players` = 2 
 WHERE `Max Players` = 2 AND `Min Players` IS NULL;
 
-**Manuální oprava konkrétní hry:**  
-UPDATE `bgg_dataset_des` SET `Min Players` = 1 WHERE `ID` = 39279; -- Somosierra 1808
+-- Manuální oprava konkrétní historické simulace (Somosierra 1808)
+UPDATE bgg_dataset_des 
+SET `Min Players` = 1 
+WHERE `ID` = 39279;
+
+🎯 Výsledky čištění dat
+Díky výše uvedeným krokům se podařilo transformovat surový a chybový dataset na konzistentní databázi připravenou k analýze:
+
+Odstranili jsme nevalidní řádky bez ID.
+
+Standardizovali jsme prázdné textové řetězce na jednotné hodnoty NULL.
+
+Vyčistili jsme datové anomálie (např. nulové herní časy nebo neomezené počty hráčů značené jako 999).
+
+🚀 Co bude dál? (Analytická fáze)Tímto čištěním ta pravá zábava teprve začíná! S takto připravenými daty se nyní mohu stoprocentně spolehnout na výsledky pokročilých analytických dotazů. V další fázi projektu se zaměřím na:Sestavení žebříčku TOP 50 nejlépe hodnocených her (s podmínkou dostatečného počtu hodnocení, aby výsledky nebyly zkreslené).  Průzkum historických her (analýza nejstarších dochovaných her v datasetu, jako je staroegyptský Senet z roku -3500).  Analýzu herních extrémů (např. rešerše her s extrémní herní dobou přesahující tisíce hodin).  
