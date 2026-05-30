@@ -42,4 +42,3 @@ WHERE `Max Players` = 2 AND `Min Players` IS NULL;
 
 **Manuální oprava konkrétní hry:**  
 UPDATE `bgg_dataset_des` SET `Min Players` = 1 WHERE `ID` = 39279; -- Somosierra 1808
-
