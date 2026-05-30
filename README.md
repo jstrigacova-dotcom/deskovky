@@ -14,7 +14,7 @@ Následně proběhla detailní kontrola `NULL` hodnot napříč všemi sloupci s
 * **Chybějící ID:** Odfiltrováno a smazáno 16 řádků, které neměly vyplněné unikátní ID.
 * **Minimální počet hráčů (`Min Players`):** Detekováno 46 prázdných hodnot. U 10 her, které měly vyplněný maximální počet hráčů, bylo provedeno dohledání reálných dat (např. hry *Stonewall Jackson*, *Wagram* či *Somosierra 1808*) a hodnoty byly ručně aktualizovány pomocí příkazů `UPDATE`.
 * **Počet vlastníků (`Owned Users`):** 7 chybějících hodnot bylo nahrazeno nulou.
-* **Kategorie (`Domains`):** Vyřešen posun dat u her jako *Level 7 [Escape]* nebo *Omega Protocol*[cite: 1]. Zjištěno, že 10 140 záznamů obsahuje prázdný textový řetězec namísto `NULL` – provedena standardizace dat.
+* **Kategorie (`Domains`):** Vyřešen posun dat u her jako *Level 7 [Escape]* nebo *Omega Protocol*. Zjištěno, že 10 140 záznamů obsahuje prázdný textový řetězec namísto `NULL` – provedena standardizace dat.
 
 ### 3. Detekce anomálií a validace (EDA)
 Pomocí agregačních funkcí (`MIN`, `MAX`) byly v datech vyhledány nelogické hodnoty a zástupné symboly.
