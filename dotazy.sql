@@ -121,5 +121,3 @@ WHERE `Play Time` &gt; 5000 OR `Play Time` = 0
 ORDER BY `Play Time` DESC;
 # tady se dívám na zoubek hrám, co se hrají i více než 100 hodin a výsledek mi vychází takovýto. Provádím si tedy research na webu a zjišťuju, že opravdu hra/hry, které se hrají i tisíc hodin
 existují, whaaat? Ok, takže data jsou v pořádku, ale zase ty nuly …. nemilosrdně je měním na NULL
-
-
